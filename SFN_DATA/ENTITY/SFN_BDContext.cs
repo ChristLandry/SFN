@@ -105,7 +105,9 @@ namespace SFN_DATA.ENTITY
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(coonection);
+            //optionsBuilder.UseNpgsql(coonection);
+            optionsBuilder.UseNpgsql("Host=127.0.0.1;Port=5433;Database=SFN_BD;Username=postgres;Password=P@ssw0rd;");
+
         }
     }
 }

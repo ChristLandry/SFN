@@ -47,7 +47,8 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddDbContext<SFN_BDContext>(options => options.UseNpgsql(conection, c => c.MigrationsAssembly("SFN")));
+//builder.Services.AddDbContext<SFN_BDContext>(options => options.UseNpgsql(conection, c => c.MigrationsAssembly("SFN")));
+builder.Services.AddDbContext<SFN_BDContext>(options => options.UseNpgsql("Host=127.0.0.1;Port=5433;Database=SFN_BD;Username=postgres;Password=P@ssw0rd;", c => c.MigrationsAssembly("SFN")));
 
 InjectDepend.InjectionDependency(builder.Services);
 SetupJWTServices(builder.Services);

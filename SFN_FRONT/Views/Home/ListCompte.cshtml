@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Liste des comptes";
+    int pageIndex = ViewBag.PageIndex;
+}
+@using SFN_MODEL.MODEL
+@model IEnumerable<JsonCompte>
+
+<br>
+<br>
+@if (TempData["msg"] != null)
+{
+    var isSucces = (bool)TempData["isSucces"];
+    if (!isSucces)
+    {
+        <div class="alert alert-danger">
+            @TempData["msg"]
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-success">
+            @TempData["msg"]
+        </div>
+    }
+
+    TempData["isSucces"] = null;
+    TempData["msg"] = null;
+}
+<br>
+<br>
+<div class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 m-auto">
+                <a asp-action="EditCompte" class="btn btn-success btn-block" style="float:left">Ajouter un compte</a>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="container" style="height: 800px !important;overflow: overlay;">
+        <div class="row">
+
+            <div class="col-12 col-lg-12 m-auto">
+                <div style="overflow-x: scroll; width: 100%!important;max-height: 800px !important;">
+                    <table class="table " id="Table">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Numéro de Compte
+                                </th>
+                                <th scope="col">
+                                    Nom de l’agence
+                                </th>
+                                <th scope="col">
+                                    Libellé
+                                </th>
+                                <th scope="col">
+                                    Type de Compte
+                                </th>
+                                <th scope="col">
+                                    Numéro de Carte
+                                </th>
+                                <th scope="col">
+                                    Adresse
+                                </th>
+                                <th scope="col">
+                                    Date création
+                                </th>
+                                <th scope="col">
+                                    Est actif
+                                </th>
+                                <th scope="col">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        var label = item.statutCompte == true ? "Oui" : "Non";
+                                        <tr class="bg-white" scope="row">
+                                            <td>
+                                                @item.numCompte
+                                            </td>
+
+                                            <td>
+                                                @item.nomAgence
+                                            </td>
+                                            <td>
+                                                @item.libelleCompte
+                                            </td>
+
+                                            <td>
+                                                @item.typeCompte
+                                            </td>
+                                            <td>
+                                                @item.numeroCarte
+                                            </td>
+                                            <td>
+                                                @item.adresse
+                                            </td>
+                                            <td>
+                                                @item.dateCreation.ToString("G")
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    @label
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("EditCompte", "Home", new { @item.numCompte})" class="previous">Modifier</a>
+
+
+                                                <a href="@Url.Action("Delete", "Home", new {@item.numCompte })" class="next">Supprimer</a>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>  
+                    </table>
+                    <div>
+
+                        <a href="@Url.Action("ListCompte", "Home", new { pageIndex = pageIndex - 1 })" class="btn btn-outline-warning btn-block" style="float:left">Précédent</a>
+
+
+                        <a href="@Url.Action("ListCompte", "Home", new { pageIndex = pageIndex + 1 })" class="btn btn-primary btn-block" style="float:right">Suivant</a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

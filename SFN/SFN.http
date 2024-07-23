@@ -1,0 +1,6 @@
+@SFN_HostAddress = http://localhost:5283
+
+GET {{SFN_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

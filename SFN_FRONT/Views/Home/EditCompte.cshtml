@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "Edition de compte";
+}
+@using SFN_MODEL.MODEL
+@model JsonCompte
+
+<div class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 m-auto" style="float:left !important">
+                <label>Formulaire de création & modification des comptes</label>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    @if (TempData["msg"] != null)
+    {
+        var isSucces = (bool)TempData["isSucces"];
+        if (!isSucces)
+        {
+            <div class="alert alert-danger">
+                @TempData["msg"]
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-success">
+                @TempData["msg"]
+            </div>
+        }
+
+        TempData["isSucces"] = null;
+        TempData["msg"] = null;
+    }
+    <br>
+    <br>
+    <div class="container" style="height: 800px !important;overflow: overlay;">
+        <br class="row">
+
+        <form asp-controller="Home" asp-action="EditCompte" style="text-align: left;">
+            <div class="form-group">
+                <label asp-for="numCompte">numéro du compte</label>
+                <input asp-for="numCompte" class="form-control" readonly />
+                <span asp-validation-for="numCompte" class="text-danger"></span>
+            </div> 
+            <br>
+            <div class="form-group">
+                <label asp-for="numeroCarte">numéro de la carte</label>
+                <input asp-for="numeroCarte" type="text" class="form-control" readonly />
+                <span asp-validation-for="numeroCarte" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="nomAgence">nom de l'agence</label>
+                <input asp-for="nomAgence" class="form-control" />
+                <span asp-validation-for="nomAgence" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="libelleCompte">Libellé du compte</label>
+                <input asp-for="libelleCompte" type="text" class="form-control" />
+                <span asp-validation-for="libelleCompte" class="text-danger"></span>
+            </div>
+            <br>
+           @*  <div class="form-group">
+                <label asp-for="numCompte">numéro du compte</label>
+                <input asp-for="numCompte" class="form-control" />
+                <span asp-validation-for="numCompte" class="text-danger"></span>
+            </div> *@
+            <br>
+            <div class="form-group">
+                <label asp-for="typeCompte">Type de compte</label>
+                <select asp-for="typeCompte" class="form-control">
+                    <option value="@null">---</option>
+                    <option value="Individu">Individu</option>
+                    <option value="Entreprise">Entreprise</option>
+                </select>
+                <span asp-validation-for="typeCompte" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="adresse">Adresse </label>
+                <input asp-for="adresse" class="form-control" />
+                <span asp-validation-for="adresse" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="statutCompte">Statut</label>
+                @* <input asp-for="statutCompte" type="checkbox" class="form-control" /> *@
+                <input asp-for="statutCompte" type="checkbox" class="form-control-checkbox" />
+            </div>
+            <input asp-for="save" type="hidden" class="form-control-checkbox" />
+            <br>
+            <br>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <input type="submit" value="Sauvegarder" class="btn btn-primary btn-block" style="float:right" />
+            
+                    <a asp-action="ListCompte" class="btn btn-danger btn-block" style="float:left"><i class="fa fa-table"></i> Annuler</a>
+                </div>
+            </div>
+           @*  <div class="col-md-12">
+                    <button type="button" style="float:left" class="btn btn-danger">Annuler</button>
+                    <button type="submit" style="float:right" class="btn btn-primary">Sauvegarder</button>
+
+            </div> *@
+        </form>
+
+    </div>
+</div>
